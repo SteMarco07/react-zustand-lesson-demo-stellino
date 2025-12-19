@@ -28,7 +28,7 @@ function App() {
         <p>Stazione Spaziale Alpha - Monitoraggio Risorse</p>
       </div>
       <div>
-        <main>
+        <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
           <InputArea />
           <Dashboard />
 
