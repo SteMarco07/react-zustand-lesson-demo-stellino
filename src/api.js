@@ -33,6 +33,12 @@ export const api = {
     }));
   },
 
+  // [Create] crea una risorsa specifica
+  createResource: async (data) => {
+    const record = await pb.collection('resources').create(data);
+    return record;
+  },
+
   // [UPDATE] Aggiorna una risorsa specifica
   updateResource: async (id, newQuantity) => {
     const record = await pb.collection('resources').update(id, {

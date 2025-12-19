@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import './App.css';
 import { useStore } from './store';
 import Dashboard from './components/Dashboard';
+import InputArea from './components/InputArea';
 
 function App() {
   // Prendiamo la funzione fetchResources dallo store
@@ -21,14 +22,19 @@ function App() {
   }, [fetchResources, subscribeToUpdates]);
 
   return (
-    <div className="App">
-      <h1>🚀 Space Cargo Manager</h1>
-      <p>Stazione Spaziale Alpha - Monitoraggio Risorse</p>
+    <>
+      <div className="App">
+        <h1>🚀 Space Cargo Manager</h1>
+        <p>Stazione Spaziale Alpha - Monitoraggio Risorse</p>
+      </div>
+      <div>
+        <main>
+          <InputArea />
+          <Dashboard />
 
-      <main>
-        <Dashboard />
-      </main>
-    </div>
+        </main>
+      </div>
+    </>
   );
 }
 
