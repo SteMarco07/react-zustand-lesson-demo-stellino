@@ -1,42 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStore } from '../store';
 import ResourceCard from './ResourceCard';
 
 const InputArea = () => {
     const addResource = useStore((state) => state.createResource);
 
-    const clearInput = () => {
-        document.getElementById('name').value = ''
-        document.getElementById('quantity').value = 0
-        document.getElementById('unit').value = ''
-        document.getElementById('type').value = ''
-    }
+    const [name, setName] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [unit, setUnit] = useState('');
+    const [type, setType] = useState('');
 
     const handleAdd = async (event) => {
-        const name = document.getElementById('name').value;
-        const quantity = parseInt(document.getElementById('quantity').value);
-        const unit = document.getElementById('unit').value;
-        const type = document.getElementById('type').value;
-
-        if (quantity < 0 || quantity > 100 || isNaN(quantity)) {
+        event.preventDefault();
+        const qty = parseInt(quantity);
+        if (qty < 0 || qty > 100 || isNaN(qty)) {
             alert('La quantità deve essere un numero compreso tra 0 e 100.');
-            return;
-        } else {
-
-            const data = {
-                'name': name,
-                'quantity': quantity,
-                'unit': unit,
-                'type': type
-            }
-
-            await addResource(data);
-            clearInput()
-
             return;
         }
 
+        const data = {
+            name,
+            quantity: qty,
+            unit,
+            type
+        };
 
+        await addResource(data);
+
+        // Clear inputs
+        setName('');
+        setQuantity('');
+        setUnit('');
+        setType('');
     };
 
     return (
@@ -51,16 +46,17 @@ const InputArea = () => {
             alignItems: 'center'
         }}>
             <h3>Aggiungi una risorsa</h3>
-            <div style={{ display: 'flex', gap: 10, height: 25, width: '100%' }}>
-                <input type='text' placeholder='Nome' id='name' style={{ flex: 1 }} />
-                <input type='number' placeholder='Quantità' id='quantity' style={{ flex: 1 }} min='0' />
-                <input type='text' placeholder='Unità' id='unit' style={{ flex: 1 }} />
-                <input type='text' placeholder='Tipo' id='type' style={{ flex: 1 }} />
-            </div>
-            <div style={{ width: '100%', marginTop: 10 }}>
-                <button onClick={handleAdd} style={{width: '100%'}}>Aggiungi la risorsa</button>
-            </div>
-
+            <form onSubmit={handleAdd}>
+                <div style={{ display: 'flex', gap: 10, height: 25, width: '100%' }}>
+                    <input type='text' placeholder='Nome' value={name} onChange={(e) => setName(e.target.value)} style={{ flex: 1 }} />
+                    <input type='number' placeholder='Quantità' value={quantity} onChange={(e) => setQuantity(e.target.value)} style={{ flex: 1 }} min='0' />
+                    <input type='text' placeholder='Unità' value={unit} onChange={(e) => setUnit(e.target.value)} style={{ flex: 1 }} />
+                    <input type='text' placeholder='Tipo' value={type} onChange={(e) => setType(e.target.value)} style={{ flex: 1 }} />
+                </div>
+                <div style={{ width: '100%', marginTop: 10 }}>
+                    <button type='submit' style={{width: '100%'}}>Aggiungi la risorsa</button>
+                </div>
+            </form>
         </div>
     )
 }
