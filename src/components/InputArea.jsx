@@ -5,6 +5,13 @@ import ResourceCard from './ResourceCard';
 const InputArea = () => {
     const addResource = useStore((state) => state.createResource);
 
+    const clearInput = () => {
+        document.getElementById('name').value = ''
+        document.getElementById('quantity').value = 0
+        document.getElementById('unit').value = ''
+        document.getElementById('type').value = ''
+    }
+
     const handleAdd = async () => {
         const name = document.getElementById('name').value;
         const quantity = parseInt(document.getElementById('quantity').value);
@@ -24,6 +31,8 @@ const InputArea = () => {
             }
 
             await addResource(data);
+            clearInput()
+
             return;
         }
 
