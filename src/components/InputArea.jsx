@@ -12,7 +12,7 @@ const InputArea = () => {
         document.getElementById('type').value = ''
     }
 
-    const handleAdd = async () => {
+    const handleAdd = async (event) => {
         const name = document.getElementById('name').value;
         const quantity = parseInt(document.getElementById('quantity').value);
         const unit = document.getElementById('unit').value;
@@ -51,14 +51,14 @@ const InputArea = () => {
             alignItems: 'center'
         }}>
             <h3>Aggiungi una risorsa</h3>
-            <div style={{ display: 'flex', gap: 10, height: 25 }}>
-                <input type='text' placeholder='Nome' id='name' />
-                <input type='number' placeholder='Quantità' id='quantity' />
-                <input type='text' placeholder='Unità' id='unit' />
-                <input type='text' placeholder='Tipo' id='type' />
+            <div style={{ display: 'flex', gap: 10, height: 25, width: '100%' }}>
+                <input type='text' placeholder='Nome' id='name' style={{ flex: 1 }} />
+                <input type='number' placeholder='Quantità' id='quantity' style={{ flex: 1 }} min='0' />
+                <input type='text' placeholder='Unità' id='unit' style={{ flex: 1 }} />
+                <input type='text' placeholder='Tipo' id='type' style={{ flex: 1 }} />
             </div>
             <div style={{ width: '100%', marginTop: 10 }}>
-                <button onClick={handleAdd}>Aggiungi la risorsa</button>
+                <button onClick={handleAdd} style={{width: '100%'}}>Aggiungi la risorsa</button>
             </div>
 
         </div>
